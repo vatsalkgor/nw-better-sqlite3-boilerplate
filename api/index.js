@@ -1,9 +1,12 @@
-const sqlite3 = require("sqlite3");
+const express = require("express");
+const app = express();
+const database = require("better-sqlite3");
+const db = new database("customeronly1.database", { verbose: console.log });
 
-sqlite3.Database("../customeronly1.database", (err) => {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("connected");
-  }
+app.get("/", (req, res) => {
+  const rows = db.prepare("select * from login").all();
+  return res.json(rows);
+});
+app.listen(4567, () => {
+  console.log("started");
 });

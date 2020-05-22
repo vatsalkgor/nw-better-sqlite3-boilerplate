@@ -16,7 +16,7 @@
   ],
   "name": "nw-angular",
   "version": "1.2.0",
-  "node-main": "api/index.js",
+  "node-main": "api/backend.js",
   "main": "http://localhost:8964",
   "node-remote": "http://localhost:8964",
   "window": {
@@ -33,7 +33,7 @@
     "build": "npm run build:clean && npm run build:ng && npm run build:nw",
     "build:clean": "rimraf ./dist-ng ./dist",
     "build:ng": "ng build --prod --output-path ./dist-ng",
-    "build:nw": "build --concurrent --tasks win-x86,linux-x86,linux-x64,mac-x64 --mirror https://dl.nwjs.io/ .",
+    "build:nw": "build --tasks mac-x64 --mirror https://dl.nwjs.io/ .",
     "build:win": "npm run build:ng && build --tasks win-x86 --mirror https://dl.nwjs.io/ .",
     "run:win": "dist\\nw-angular-1.1.0-win-x86\\nw-angular.exe",
     "generate": "ng generate",
@@ -43,8 +43,11 @@
   },
   "private": true,
   "dependencies": {
+    "better-sqlite3": "^7.0.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
-    "sqlite3": "^4.2.0"
+    "express-session": "^1.17.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.900.6",
@@ -86,8 +89,8 @@
   },
   "chromium-args": "--enable-spell-checking",
   "build": {
-    "nwVersion": "v0.44.4",
-    "nwFlavor": "normal",
+    "nwVersion": "v0.46.0",
+    "nwFlavor": "sdk",
     "targets": [
       "zip",
       "nsis7z"
